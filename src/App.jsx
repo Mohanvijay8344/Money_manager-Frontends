@@ -5,25 +5,25 @@ import { PriceHistoryTable } from "./PriceHistoryTable";
 import { TotalRates } from "./TotalRates";
 import { useEffect } from "react";
 import { API } from "./global.js";
-import { Routes, Route, Link, Navigate,useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Forgot } from "./Forgot";
 import { SignIn } from "./SignIn";
 import SignUp from "./signup";
 
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+
 
 function checkAuth(res) {
   if (res.status === 401) {
@@ -32,7 +32,6 @@ function checkAuth(res) {
     return res.json();
   }
 }
-
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -51,17 +50,15 @@ export default function App() {
         console.error("An error occurred while fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
-  
   return (
     <div>
       <MenuAppBar />
@@ -106,7 +103,6 @@ function Error() {
 }
 
 export function MenuAppBar() {
-
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -119,15 +115,12 @@ export function MenuAppBar() {
   };
 
   const handleClose = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     window.location.reload();
-
   };
-
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -158,18 +151,17 @@ export function MenuAppBar() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                
                 <MenuItem onClick={handleClose}>LogOut</MenuItem>
               </Menu>
             </div>
@@ -179,4 +171,3 @@ export function MenuAppBar() {
     </Box>
   );
 }
-
