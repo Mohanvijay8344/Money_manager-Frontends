@@ -8,7 +8,7 @@ import { API } from "./global.js";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Forgot } from "./Forgot";
 import { SignIn } from "./SignIn";
-import SignUp from "./signup";
+import SignUp from "./App.1";
 
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
