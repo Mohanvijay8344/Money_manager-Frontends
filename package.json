@@ -5,6 +5,7 @@
   "type": "module",
   "proxy": "http://localhost:4000",
   "scripts": {
+    "build:dist": "react-build-dist",
     "start": "node server.js",
     "dev": "vite",
     "build": "vite build",
@@ -21,6 +22,7 @@
     "formik": "^2.4.5",
     "mdb-react-ui-kit": "^6.3.0",
     "react": "^18.2.0",
+    "react-build-dist": "^0.0.8",
     "react-crud-table": "^0.3.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
