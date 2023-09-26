@@ -1,0 +1,211 @@
+body{
+  background: #f12711;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.containers {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Center items horizontally */
+  justify-content: space-around; /* Space items evenly vertically */
+}
+
+.contain {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.contain p {
+  margin: 0;
+  color: #555;
+}
+
+.contain h1 {
+  margin: 10px 0;
+}
+
+/* Additional styling for the other two divs */
+.containers > div {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  margin: 10px auto;
+  height: 120px;
+}
+
+/* Style for the last div (Balance Cash) */
+.containers > div:last-child {
+  background-color: #e0e0e0;
+}
+
+.welcome{
+  display: flex;
+  font-weight: bold;
+  font-size: large;
+  justify-content: space-around;
+  font-size: 40px;
+  color: black;
+}
+
+/* Form container */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Form header */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Form fields container */
+div {
+  margin-bottom: 15px;
+}
+
+/* Label styles */
+label {
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Radio button styles */
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Button styles */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Add these styles to your App.css file or create a separate CSS file for your table styles */
+
+/* Style for the table container */
+.table-container {
+  margin-top: 20px;
+  width: 80%;
+  margin: 20px auto;
+}
+
+/* Style for the table */
+.tabledata {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Style for table headers */
+.tabledata th {
+  background-color: #007bff;
+  color: #fff;
+  text-align: left;
+  padding: 12px;
+}
+
+/* Style for table rows */
+.tabledata tr {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style for alternating row colors */
+.tabledata tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style for table cells */
+.tabledata td {
+  padding: 12px;
+}
+
+/* Style for edit and delete buttons */
+.tabledata button {
+  padding: 6px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.tabledata button:hover {
+  background-color: #0056b3;
+}
+
+.delet{
+  background-color: #d41c03;
+  
+}
+
+.tablecon{
+  background-color: #fff;
+}
+
+.error{
+  width: 100%;
+  object-fit: cover;
+  height: 100vh;
+}
+
+  
+h1, h1 {
+    font-size: 30px;
+    font-weight: bolder;
+    color: black;
+}
+
+h2{
+  font-size: 30px;
+  font-weight: bolder;
+  color: black;
+}
