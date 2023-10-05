@@ -46,8 +46,7 @@ export function TotalRates() {
       }, 0);
       setTotalIncome(totalIncomes);
 
-      const netIncomes = totalIncomes - totalExpenditures;
-      setNetIncome(netIncomes);
+
 
       const totalExpenditures = data.reduce((total, transaction) => {
         return transaction.category === "expenditure"
@@ -55,6 +54,10 @@ export function TotalRates() {
           : total;
       }, 0);
       setTotalExpenditure(totalExpenditures);
+
+      const netIncomes = totalIncomes - totalExpenditures;
+      setNetIncome(netIncomes);
+      
     } catch (error) {
       console.error("Error:", error);
     }
