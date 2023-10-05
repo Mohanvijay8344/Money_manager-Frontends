@@ -4,7 +4,7 @@ import { API } from "./global.js";
 import ReactFlipCard from "reactjs-flip-card";
 import "./TotalRates.css";
 import React from "react";
-import CanvasJSReact from "@canvasjs/react-charts";
+// import CanvasJSReact from "@canvasjs/react-charts";
 
 export function TotalRates() {
   const [totalIncome, setTotalIncome] = useState(0);
@@ -120,36 +120,36 @@ export function TotalRates() {
 
 
 
-const { CanvasJSChart } = CanvasJSReact;
+// const { CanvasJSChart } = CanvasJSReact;
 
-const Chart = ({ netIncome, totalIncome, totalExpenditure }) => {
-  const options = {
-    animationEnabled: true,
-    exportEnabled: true,
-    theme: "light1", // "light1", "dark1", "dark2"
-    title: {
-      text: "Money Expenses",
-    },
-    data: [
-      {
-        type: "pie",
-        indexLabel: "{label}: {y}₹",
-        startAngle: -90,
-        dataPoints: [
-          { y: totalIncome, label: "Total Income" },
-          { y: totalExpenditure, label: "Total Expenditure" },
-          { y: netIncome, label: "Net Income" },
-        ],
-      },
-    ],
-  };
+// const Chart = ({ netIncome, totalIncome, totalExpenditure }) => {
+//   const options = {
+//     animationEnabled: true,
+//     exportEnabled: true,
+//     theme: "light1", // "light1", "dark1", "dark2"
+//     title: {
+//       text: "Money Expenses",
+//     },
+//     data: [
+//       {
+//         type: "pie",
+//         indexLabel: "{label}: {y}₹",
+//         startAngle: -90,
+//         dataPoints: [
+//           { y: totalIncome, label: "Total Income" },
+//           { y: totalExpenditure, label: "Total Expenditure" },
+//           { y: netIncome, label: "Net Income" },
+//         ],
+//       },
+//     ],
+//   };
 
-  return (
-    <div>
-      <CanvasJSChart options={options} />
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <CanvasJSChart options={options} />
+//     </div>
+//   );
+// };
 
-export default Chart;
+// export default Chart;
 
