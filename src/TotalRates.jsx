@@ -46,7 +46,7 @@ export function TotalRates() {
       }, 0);
       setTotalIncome(totalIncomes);
 
-      const netIncomes = totalIncomes - totalExpenditure;
+      const netIncomes = totalIncomes - totalExpenditures;
       setNetIncome(netIncomes);
 
       const totalExpenditures = data.reduce((total, transaction) => {
