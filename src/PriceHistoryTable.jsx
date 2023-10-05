@@ -1,104 +1,85 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { API } from "./global.js";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import { BoxModel } from "./BoxModel";
+import { PriceListItem } from "./PriceListItem";
+import "./PriceHistoryTable.css";
 
 export function PriceHistoryTable() {
-  const [editingId, setEditingId] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [editItemId, setEditItemId] = useState(null);
 
-  const initialValues = {
-    category: "",
-    amount: "",
-    cashType: "",
-    description: "",
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(`${API}/Money`, {
+  //       method: "GET",
+  //     });
+  //     const data = await response.json();
+  //     setUsers(data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
-  const validationSchema = yup.object({
-    category: yup.string().required("Category is required"),
-    amount: yup
-      .number()
-      .typeError("Amount must be a number")
-      .required("Amount is required"),
-    cashType: yup.string().required("Cash Type is required"),
-    description: yup.string().required("Description is required"),
-  });
+  function logout() {
+    localStorage.clear();
+    window.location.href = "/";
+  }
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      if (editingId) {
-        handleEdit(editingId, values);
-      } else {
-        addExpense(values);
-      }
+  function checkAuth() {
+    if(res.status === 401){
+      throw Error ("unauthorized")
+    }else{
+      return res.json();
+    }
+  }
+
+  const fetchData = async () => {
+    await fetch(`${API}/Money`, {
+      method: "GET",
+    headers: {
+      "x-auth-token": localStorage.getItem("token")
     },
-  });
-const [users, setUsers] = useState([])
+  })
+  .then((res) => checkAuth(res))
+  .then((data) => setUsers(data))
+  .catch((err) => console.log(err));
+};
 
-  const fetchUsers = async () => {
+  const handleDelete = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        console.error("Authentication token is missing.");
-        return;
-      }
-
-      const response = await fetch(`${API}/Money`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await fetch(`${API}/Money/${id}`, {
+        method: "DELETE",
       });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data (HTTP ${response.status})`);
-      }
-
-      const data = await response.json();
-      setUsers(data);
+      alert("Are You Sure Delete");
+      fetchData();
     } catch (error) {
-      console.error("An error occurred while fetching data:", error);
+      console.error("An error occurred while deleting user data", error);
     }
   };
 
-  const addExpense = async (newExpense) => {
-    try {
-      const response = await fetch(`${API}/Money`, {
-        method: "POST",
-        body: JSON.stringify([newExpense]),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        console.log("User data created successfully");
-        formik.resetForm();
-        fetchUsers();
-      } else {
-        console.error("Failed to create user data");
-      }
-    } catch (error) {
-      console.error("An error occurred while creating user data", error);
-    }
+  const handleEdit = (id) => {
+    setEditItemId(id);
   };
 
-  const handleEdit = async (id, updatedData) => {
+  const handleCancelEdit = () => {
+    setEditItemId(null);
+  };
+
+  const onUpdate = async (id, updatedData) => {
     try {
       const response = await fetch(`${API}/Money/${id}`, {
         method: "PUT",
-        body: JSON.stringify(updatedData),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(updatedData), // Pass the updated data as JSON
       });
 
       if (response.ok) {
-        console.log("User data updated successfully");
-        formik.resetForm();
-        setEditingId(null);
-        fetchUsers();
+        // Data updated successfully
+        fetchData(); // Fetch updated data to refresh the table
+        window.location.reload();
       } else {
         console.error("Failed to update user data");
       }
@@ -107,133 +88,17 @@ const [users, setUsers] = useState([])
     }
   };
 
-  const startEdit = (id, userData) => {
-    formik.setValues({
-      category: userData.category,
-      amount: userData.amount,
-      cashType: userData.cashType,
-      description: userData.description,
-    });
-    setEditingId(id);
-  };
-
-  const cancelEdit = () => {
-    formik.resetForm();
-    setEditingId(null);
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`${API}/Money/${id}`, {
-        method: "DELETE",
-      });
-      alert("Are You Sure Delete");
-      fetchUsers();
-    } catch (error) {
-      console.error("An error occurred while deleting user data", error);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
 
   return (
     <div>
-      <div>
-        <h2>Expense Tracker</h2>
-        <form onSubmit={formik.handleSubmit}>
-          <div>
-            <label htmlFor="category">Category:</label>
-            <input
-              type="radio"
-              name="category"
-              value="income"
-              checked={formik.values.category === "income"}
-              onChange={formik.handleChange}
-            />
-            <label htmlFor="income">Income</label>
-            <input
-              type="radio"
-              name="category"
-              value="expenditure"
-              checked={formik.values.category === "expenditure"}
-              onChange={formik.handleChange}
-            />
-            <label htmlFor="expenditure">Expenditure</label>
-          </div>
-          <div>
-            <label htmlFor="amount">Amount:</label>
-            <input
-              type="text"
-              name="amount"
-              value={formik.values.amount}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              placeholder="Enter Amount"
-            />
-            {formik.touched.amount && formik.errors.amount ? (
-              <div className="error">{formik.errors.amount}</div>
-            ) : null}
-          </div>
-          <div>
-            <label>Cash Type:</label>
-            <input
-              type="radio"
-              name="cashType"
-              value="Cash"
-              checked={formik.values.cashType === "Cash"}
-              onChange={formik.handleChange}
-            />
-            <label>Cash</label>
-            <input
-              type="radio"
-              name="cashType"
-              value="Gpay"
-              checked={formik.values.cashType === "Gpay"}
-              onChange={formik.handleChange}
-            />
-            <label>Gpay</label>
-            <input
-              type="radio"
-              name="cashType"
-              value="Phonepe"
-              checked={formik.values.cashType === "Phonepe"}
-              onChange={formik.handleChange}
-            />
-            <label>Phonepe</label>
-            <input
-              type="radio"
-              name="cashType"
-              value="Others"
-              checked={formik.values.cashType === "Others"}
-              onChange={formik.handleChange}
-            />
-            <label>Others</label>
-          </div>
-          <div>
-            <label htmlFor="description">Description:</label>
-            <input
-              type="text"
-              name="description"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              placeholder="Enter Description"
-            />
-            {formik.touched.description && formik.errors.description ? (
-              <div className="error">{formik.errors.description}</div>
-            ) : null}
-          </div>
-          <button type="submit">{editingId ? "Save" : "Submit"}</button>
-          {editingId && (
-            <button type="button" onClick={cancelEdit}>
-              Cancel
-            </button>
-          )}
-        </form>
+      <div className="History"> 
+        <h1>Expense History</h1>
+        <BoxModel onUpdate={fetchData} />
       </div>
-      <h1>Expense History</h1>
+
       <table className="tabledata">
         <thead>
           <tr>
@@ -249,40 +114,15 @@ const [users, setUsers] = useState([])
             <PriceListItem
               key={e._id}
               data={e}
-              onEdit={() => startEdit(e._id, e)}
+              isEditing={editItemId === e._id}
+              onEdit={() => handleEdit(e._id)}
+              onCancelEdit={handleCancelEdit}
               onDelete={() => handleDelete(e._id)}
+              onUpdate={(updatedData) => onUpdate(e._id, updatedData)}
             />
           ))}
         </tbody>
       </table>
     </div>
-  );
-}
-
-function PriceListItem({ data, onEdit, onDelete }) {
-  const textColor = data.category === "expenditure" ? "crimson" : "green";
-
-  const styles = {
-    color: textColor,
-  };
-
-  const bgstyles = {
-    backgroundColor: "red",
-    color: "white",
-  };
-
-  return (
-    <tr className="tablecon">
-      <td style={styles}>{data.category}</td>
-      <td style={styles}>{data.amount}</td>
-      <td style={styles}>{data.cashType}</td>
-      <td style={styles}>{data.description}</td>
-      <td>
-        <button onClick={onEdit}>Edit</button>
-        <button onClick={onDelete} style={bgstyles} className="delete">
-          Delete
-        </button>
-      </td>
-    </tr>
   );
 }
