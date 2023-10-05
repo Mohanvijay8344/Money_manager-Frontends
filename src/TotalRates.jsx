@@ -118,10 +118,11 @@ export function TotalRates() {
   );
 }
 
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-export class Chart extends Component {
+
+const { CanvasJSChart } = CanvasJSReact;
+
+class Chart extends Component {
   render() {
     const { netIncome, totalIncome, totalExpenditure } = this.props;
     const options = {
