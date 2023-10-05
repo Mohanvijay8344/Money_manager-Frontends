@@ -9,42 +9,42 @@ export function PriceHistoryTable() {
   const [users, setUsers] = useState([]);
   const [editItemId, setEditItemId] = useState(null);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(`${API}/Money`, {
-  //       method: "GET",
-  //     });
-  //     const data = await response.json();
-  //     setUsers(data);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
-  function logout() {
-    localStorage.clear();
-    window.location.href = "/";
-  }
-
-  function checkAuth() {
-    if(res.status === 401){
-      throw Error ("unauthorized")
-    }else{
-      return res.json();
-    }
-  }
-
   const fetchData = async () => {
-    await fetch(`${API}/Money`, {
-      method: "GET",
-    headers: {
-      "x-auth-token": localStorage.getItem("token")
-    },
-  })
-  .then((res) => checkAuth(res))
-  .then((data) => setUsers(data))
-  .catch((err) => console.log(err));
-};
+    try {
+      const response = await fetch(`${API}/Money`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+//   function logout() {
+//     localStorage.clear();
+//     window.location.href = "/";
+//   }
+
+//   function checkAuth() {
+//     if(res.status === 401){
+//       throw Error ("unauthorized")
+//     }else{
+//       return res.json();
+//     }
+//   }
+
+//   const fetchData = async () => {
+//     await fetch(`${API}/Money`, {
+//       method: "GET",
+//     headers: {
+//       "x-auth-token": localStorage.getItem("token")
+//     },
+//   })
+//   .then((res) => checkAuth(res))
+//   .then((data) => setUsers(data))
+//   .catch((err) => console.log(err));
+// };
 
   const handleDelete = async (id) => {
     try {
