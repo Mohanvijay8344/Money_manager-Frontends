@@ -109,11 +109,11 @@ export function TotalRates() {
           <p>API token not available. Please log in to fetch data.</p>
         </div>
       )}
-      <Chart
+      {/* <Chart
         netIncome={netIncome}
         totalIncome={totalIncome}
         totalExpenditure={totalExpenditure}
-      />
+      /> */}
     </div>
   );
 }
