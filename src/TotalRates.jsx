@@ -4,6 +4,7 @@ import { API } from "./global.js";
 import ReactFlipCard from "reactjs-flip-card";
 import "./TotalRates.css";
 import React from "react";
+import { Component } from "react";
 // import CanvasJSReact from "@canvasjs/react-charts";
 
 export function TotalRates() {
@@ -57,7 +58,7 @@ export function TotalRates() {
 
       const netIncomes = totalIncomes - totalExpenditures;
       setNetIncome(netIncomes);
-      
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -155,4 +156,5 @@ export function TotalRates() {
 // };
 
 // export default Chart;
+
 
